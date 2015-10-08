@@ -23,18 +23,24 @@ function Bot(name, chooseMoveFunction, chooseShootFunction) {
 					}
 				};
 	this.shoot = function (myBot, dir) {
+					bullet = bullets.create(this.x, this.y, 'randBot');
+	        		bullet.scale.setTo(0.2, 0.5);
+	        		game.physics.arcade.enable(bullet);
+					bullet.body.enable = true;
+					bullet.body.friction = {x: 0, y: 0};
+					bullet.body.drag = {x: 0, y: 0};
 					if(dir === "Up"){
 						// Create Bullet
-						console.log("shoot up");
+						bullet.body.velocity = {x: 0, y: -500};
 					}
 					else if (dir === "Down") {
-						console.log("Shoot Down");
+						bullet.body.velocity = {x: 0, y: 500};
 					}
 					else if (dir === "Right") {
-						console.log("Shoot Right");
+						bullet.body.velocity = {x: 500, y: 0};
 					}
 					else if (dir === "Left") {
-						console.log("Shoot Left");
+						bullet.body.velocity = {x: -500, y: 0};
 					}
 					myBot.reloadTimer = 0;
 				};
@@ -43,3 +49,7 @@ function Bot(name, chooseMoveFunction, chooseShootFunction) {
 	this.chooseMove = chooseMoveFunction;
 	this.chooseShoot = chooseShootFunction;
 }
+
+
+
+

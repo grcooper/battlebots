@@ -12,7 +12,11 @@ var titleFont = { font: '30px Arial', fill: '#fff' };
 var menuItemFont = { font: '24px Arial', fill: '#fff' };
 
 // Groups
-var bots;
+var bots, bullets, rocks;
+
+var bullet, rock;
+
+var obs;
 
 
 // Shuffle Function
@@ -57,14 +61,26 @@ var gameState = {
 	preload: function() {
 		// Preload Assets
 		game.load.image('randBot', 'src/assets/square.png');
+		game.load.image('Rock', 'src/assets/rock.png');
 	},
 	create: function() {
+		// Physics
+		game.physics.startSystem(Phaser.Physics.ARCADE);
+
 		bots = game.add.group();
 		var randBot = bots.create(0,0, 'randBot');
 		randBot.bot = new Bot("RandBot", randMove, randShoot);
 		randBot.bot.x = 0;
 		randBot.bot.y = 0;
-		console.log(randBot.bot);
+		//console.log(randBot.bot);
+		bullets = game.add.group();
+
+		rocks = game.add.group();
+		for(var i = 0; i < 5; i++) {
+			var rock = rocks.create(Math.random() * game.world.width * 0.9, Math.random() * game.world.height * 0.9, 'Rock');
+			rock.scale.setTo(0.1, 0.1);
+		}
+
 	},
 	update: function() {
 		for(var i = 0; i < bots.length; i++) {
